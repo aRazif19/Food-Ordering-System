@@ -41,7 +41,7 @@ namespace FoodOrderingAPI.Tests.Controllers
         {
             // Arrange
             var mockOrderRepository = new Mock<IOrderRepository>();
-            mockOrderRepository.Setup(r => r.makeOrder(It.IsAny<Order>())).Throws(new Exception("Test Exception"));
+            mockOrderRepository.Setup(r => r.MakeOrder(It.IsAny<Order>())).Throws(new Exception("Test Exception"));
             var controller = new OrdersController(mockOrderRepository.Object);
             var order = new Order
             {

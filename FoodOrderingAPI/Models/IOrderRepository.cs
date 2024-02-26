@@ -7,6 +7,6 @@ namespace FoodOrderingAPI.Models
 {
     public interface IOrderRepository
     {
-        void makeOrder(Order order);
+        void MakeOrder(Order order);
     }
 }

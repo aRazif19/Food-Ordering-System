@@ -12,9 +12,6 @@ namespace FoodOrderingAPI.Controllers
 {
     public class FoodsController : ApiController
     {
-        //private string connectionString = ConfigurationManager.ConnectionStrings["DefaultConn"].ConnectionString;
-        //List<Food> Foods = new List<Food>();
-
         private readonly IFoodRepository _foodRepository;
 
         public FoodsController(IFoodRepository foodRepository)

@@ -14,7 +14,6 @@ namespace FoodOrderingAPI.Controllers
     {
         private readonly IOrderRepository _orderRepository;
 
-        // GET: api/Orders
         public OrdersController(IOrderRepository orderRepository) 
         {
             _orderRepository = orderRepository;
@@ -25,7 +24,7 @@ namespace FoodOrderingAPI.Controllers
         {
             try
             {
-                _orderRepository.makeOrder(order);
+                _orderRepository.MakeOrder(order);
                 return Ok(order);
             }
             catch (Exception ex)

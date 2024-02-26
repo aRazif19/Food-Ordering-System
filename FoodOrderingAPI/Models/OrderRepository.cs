@@ -10,7 +10,7 @@ namespace FoodOrderingAPI.Models
     public class OrderRepository : IOrderRepository
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["DefaultConn"].ConnectionString;
-        public void makeOrder(Order order)
+        public void MakeOrder(Order order)
         {
             try
             {
@@ -18,7 +18,6 @@ namespace FoodOrderingAPI.Models
                 {
                     conn.Open();
 
-                    // Check if the cart exists for the provided Customer_ID
                     using (SqlCommand cartCmd = new SqlCommand("SELECT COUNT(*) FROM Order_Cart WHERE Customer_ID = @Customer_ID AND Order_status IS NULL", conn))
                     {
                         cartCmd.Parameters.AddWithValue("@Customer_ID", order.Customer_ID);
@@ -30,7 +29,6 @@ namespace FoodOrderingAPI.Models
                         }
                     }
 
-                    // Check if the food item exists in the cart
                     using (SqlCommand cartFoodCmd = new SqlCommand("SELECT COUNT(*) FROM Order_Cart WHERE Food_ID = @FoodId AND Order_status IS NULL", conn))
                     {
                         cartFoodCmd.Parameters.AddWithValue("@FoodId", order.FoodId);
@@ -42,7 +40,6 @@ namespace FoodOrderingAPI.Models
                         }
                     }
 
-                    // Calculate total price
                     using (SqlCommand foodpriceCmd = new SqlCommand("SELECT Food_price FROM Food WHERE Id = @FoodId", conn))
                     {
                         foodpriceCmd.Parameters.AddWithValue("@FoodId", order.FoodId);
@@ -51,7 +48,6 @@ namespace FoodOrderingAPI.Models
                         order.Total_price = order.Quantity * foodPrice;
                     }
 
-                    // Insert the order
                     using (SqlCommand cmd = new SqlCommand("INSERT INTO Order_Cart (Quantity, Total_price, Customer_name, Customer_address, Order_status, Customer_ID, Food_ID) VALUES (@Quantity, @Total_price, @Customer_name, @Customer_address, @Order_status, @Customer_ID, @FoodId); SELECT SCOPE_IDENTITY();", conn))
                     {
                         cmd.Parameters.AddWithValue("@Quantity", order.Quantity);
